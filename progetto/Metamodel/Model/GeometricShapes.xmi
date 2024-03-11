@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uml="http://umlmodel.com"
+    xsi:schemaLocation="http://umlmodel.com ../uml.ecore"
+    name="GeometricShapes">
+  <own xsi:type="uml:Class"
+      name="Shape"
+      isAbstract="true"/>
+  <own xsi:type="uml:Class"
+      name="Rectangle"
+      parent="//@own.0">
+    <attribute
+        type="//@own.4"
+        name="width"/>
+    <attribute
+        type="//@own.4"
+        name="length"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Circle"
+      parent="//@own.0">
+    <attribute
+        type="//@own.4"
+        name="radius"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Square"
+      parent="//@own.0">
+    <attribute
+        type="//@own.4"
+        name="side"/>
+  </own>
+  <own xsi:type="uml:PrimitiveType"
+      name="Double"/>
+</uml:Model>

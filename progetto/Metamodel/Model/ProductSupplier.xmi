@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uml="http://umlmodel.com"
+    xsi:schemaLocation="http://umlmodel.com ../uml.ecore"
+    name="Demo">
+  <own xsi:type="uml:Class"
+      name="Product">
+    <attribute
+        type="//@own.5"
+        name="ID"/>
+    <attribute
+        type="//@own.4"
+        name="Name"/>
+    <attribute
+        type="//@own.4"
+        name="Description"/>
+    <attribute
+        type="//@own.7"
+        name="ReleasedDate"/>
+    <attribute
+        type="//@own.7"
+        name="DiscontinuedDate"/>
+    <attribute
+        name="Rating"/>
+    <attribute
+        type="//@own.6"
+        name="Price"/>
+    <association
+        source="//@own.0"
+        target="//@own.1"
+        name="ProductSupplier"
+        type="//@own.3"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Supplier">
+    <attribute
+        type="//@own.5"
+        name="ID"/>
+    <attribute
+        name="Name"/>
+    <attribute
+        type="//@own.2"
+        name="Address"/>
+    <association
+        source="//@own.1"
+        target="//@own.0"
+        name="SupplierProduct"
+        multivalue="true"
+        type="//@own.3"/>
+  </own>
+  <own xsi:type="uml:DataType"
+      name="Address">
+    <attribute
+        type="//@own.4"
+        name="Street"/>
+    <attribute
+        type="//@own.4"
+        name="City"/>
+    <attribute
+        type="//@own.4"
+        name="State"/>
+    <attribute
+        type="//@own.4"
+        name="ZipCode"/>
+    <attribute
+        type="//@own.4"
+        name="Country"/>
+  </own>
+  <own name="Association"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="String"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="Integer"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="Double"/>
+  <own xsi:type="uml:DataType"
+      name="Date"/>
+</uml:Model>

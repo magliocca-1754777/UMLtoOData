@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OData="http://odatamodel.com" xsi:schemaLocation="http://odatamodel.com ../OData.ecore">
+  <OData:ODSchema namespace="com.example.ODataGeometricShapes" alias="GeometricShapes">
+    <entitycontainer name="GeometricShapesService">
+      <entitysets name="Shapes" entitytype="/0/@entitytypes.0"/>
+      <entitysets name="Rectangles" entitytype="/0/@entitytypes.1"/>
+      <entitysets name="Circles" entitytype="/0/@entitytypes.2"/>
+      <entitysets name="Squares" entitytype="/0/@entitytypes.3"/>
+    </entitycontainer>
+    <entitytypes name="Shape" abstract="true"/>
+    <entitytypes name="Rectangle" baseType="/0/@entitytypes.0">
+      <properties type="/1" name="width"/>
+      <properties type="/1" name="length"/>
+    </entitytypes>
+    <entitytypes name="Circle" baseType="/0/@entitytypes.0">
+      <properties type="/1" name="radius"/>
+    </entitytypes>
+    <entitytypes name="Square" baseType="/0/@entitytypes.0">
+      <properties type="/1" name="side"/>
+    </entitytypes>
+  </OData:ODSchema>
+  <OData:ODPrimitiveType name="Double"/>
+</xmi:XMI>

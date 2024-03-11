@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uml="http://umlmodel.com"
+    xsi:schemaLocation="http://umlmodel.com ../uml.ecore"
+    name="Tutor">
+  <own xsi:type="uml:Class"
+      name="Tutor">
+    <attribute
+        type="//@own.3"
+        name="name"/>
+    <association
+        source="//@own.0"
+        target="//@own.2"
+        name="worksOn"
+        type="//@own.4"/>
+  </own>
+  <own xsi:type="uml:Enumeration"
+      name="DaysOfTheWeek">
+    <enumerationliteral
+        literalName="Monday"/>
+    <enumerationliteral
+        literalName="Tuesday "/>
+    <enumerationliteral
+        literalName="Wednesday"/>
+    <enumerationliteral
+        literalName="Thursday"/>
+    <enumerationliteral
+        literalName="Friday"/>
+    <enumerationliteral
+        literalName="Saturday"/>
+    <enumerationliteral
+        literalName="Sunday"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="DaysOfTheWeek">
+    <attribute
+        type="//@own.1"
+        name="DaysOfTheWeek"/>
+  </own>
+  <own xsi:type="uml:PrimitiveType"
+      name="String"/>
+  <own name="DirectedAssociation"/>
+</uml:Model>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uml="http://umlmodel.com"
+    xsi:schemaLocation="http://umlmodel.com ../uml.ecore"
+    name="Person">
+  <own xsi:type="uml:Class"
+      name="Person">
+    <attribute
+        type="//@own.5"
+        name="name"/>
+    <attribute
+        type="//@own.5"
+        name="phoneNumber"
+        multivalue="true"/>
+    <attribute
+        type="//@own.3"
+        name="address"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Student"
+      parent="//@own.0">
+    <attribute
+        type="//@own.6"
+        name="studentNumber"/>
+    <attribute
+        type="//@own.6"
+        name="average"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Professor"
+      parent="//@own.0">
+    <attribute
+        type="//@own.6"
+        name="salary"/>
+    <attribute
+        type="//@own.6"
+        name="yearOfService"/>
+    <attribute
+        type="//@own.6"
+        name="numberOfClasses"/>
+    <association
+        source="//@own.2"
+        target="//@own.1"
+        name="supervises"
+        type="//@own.7"/>
+  </own>
+  <own xsi:type="uml:DataType"
+      name="Address">
+    <attribute
+        type="//@own.4"
+        name="Street"/>
+    <attribute
+        type="//@own.5"
+        name="City"/>
+    <attribute
+        type="//@own.5"
+        name="State"/>
+    <attribute
+        type="//@own.5"
+        name="PostalCode"/>
+    <attribute
+        type="//@own.5"
+        name="Country"/>
+  </own>
+  <own xsi:type="uml:DataType"
+      name="Street"
+      parent="//@own.3">
+    <attribute
+        type="//@own.5"
+        name="Street"/>
+    <attribute
+        type="//@own.6"
+        name="streetNumber"/>
+  </own>
+  <own xsi:type="uml:PrimitiveType"
+      name="String"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="Integer"/>
+  <own name="DirectedAssociation"/>
+</uml:Model>

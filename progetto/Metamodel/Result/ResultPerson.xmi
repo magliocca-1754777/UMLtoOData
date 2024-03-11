@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OData="http://odatamodel.com" xsi:schemaLocation="http://odatamodel.com ../OData.ecore">
+  <OData:ODSchema namespace="com.example.ODataPerson" alias="Person">
+    <entitycontainer name="PersonService">
+      <entitysets name="Persons" entitytype="/0/@entitytypes.0"/>
+      <entitysets name="Students" entitytype="/0/@entitytypes.1"/>
+      <entitysets name="Professors" entitytype="/0/@entitytypes.2">
+        <navigationpropertybindings path="supervises" target="DirectedAssociation"/>
+      </entitysets>
+    </entitycontainer>
+    <entitytypes name="Person">
+      <properties type="/1" name="name"/>
+      <properties multivalue="true" type="/1" name="phoneNumber"/>
+      <properties type="/2" name="address"/>
+    </entitytypes>
+    <entitytypes name="Student" baseType="/0/@entitytypes.0">
+      <properties type="/4" name="studentNumber"/>
+      <properties type="/4" name="average"/>
+    </entitytypes>
+    <entitytypes name="Professor" baseType="/0/@entitytypes.0">
+      <navigationproperties type="/5" name="supervises"/>
+      <properties type="/4" name="salary"/>
+      <properties type="/4" name="yearOfService"/>
+      <properties type="/4" name="numberOfClasses"/>
+    </entitytypes>
+  </OData:ODSchema>
+  <OData:ODPrimitiveType name="String"/>
+  <OData:ODComplexType name="Address">
+    <properties type="/3" name="Street"/>
+    <properties type="/1" name="City"/>
+    <properties type="/1" name="State"/>
+    <properties type="/1" name="PostalCode"/>
+    <properties type="/1" name="Country"/>
+  </OData:ODComplexType>
+  <OData:ODComplexType name="Street" baseType="/2">
+    <properties type="/1" name="Street"/>
+    <properties type="/4" name="streetNumber"/>
+  </OData:ODComplexType>
+  <OData:ODPrimitiveType name="Integer"/>
+  <OData:ODEntityType name="DirectedAssociation"/>
+  <OData:ODEntitySet name="DirectedAssociation" entitytype="/5"/>
+</xmi:XMI>

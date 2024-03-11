@@ -1,0 +1,126 @@
+modeltype UML "strict" uses uml('http://umlmodel.com');
+modeltype OData "strict" uses OData('http://odata.com');
+
+transformation NewTransformation(in source: UML, out target: OData);
+
+main() {
+source.rootObjects()[Model] -> map ModelToOdSchema();
+}
+
+mapping Model::ModelToOdSchema() : ODSchema{
+//s.schemaNamespace = "com.example" + m.name
+result.namespace := "com.example.OData" + self.name;
+//s.schemaAlias = m.name
+result.alias := self.name;
+result.entitytypes := self.own[Class].map ClassToODEntityType();
+result.entitycontainer := self.map ODEntityContainer();
+
+}
+
+mapping Model::ODEntityContainer() : ODEntityContainer{
+//s.entityContainerName = m.name + "Service"
+result.name := self.name + "Service";
+result.entitysets := self.own[Class].map ClassToODEntitySet();
+
+}
+
+mapping Class::ClassToODEntityType() : ODEntityType {
+//et.name = c.name
+result.name := self.name ;
+//if c.abstract = true then et.abstract ← true
+if (self.isAbstract = true) result._abstract := true;
+//if c.generalizations contains a class cc then et.baseType ← t where t is the corresponding EntityType of cc	
+if (self.parent <> null) 
+	result.baseType  := self.parent.map ClassToODEntityType();       
+//et.properties ← (cf. rules to transform attributes, rows 3 and 4)
+//p is a class attribute or a data type attribute
+result.properties := self.attribute.map AttributeToODProperty();
+//p is a class attribute marked as ID
+var IDAttributes : OrderedSet(Attribute);
+self.attribute->forEach(i){if (i.name="ID") IDAttributes += i;};
+result.propertykeyref := IDAttributes.map AttributeToODPropertyKeyRef();
+//et.navigationProperties ← (cf. rule to transform navigable association ends, i.e., row 5)
+//p is a navigable association end
+result.navigationproperties:= self.association.map AssociationToODNavigationProperty();
+}
+
+mapping Class::ClassToODEntitySet() : ODEntitySet {
+//es.name ← the plural form of c.name
+result.name := self.name + "s";
+//es.entityType ← et
+result.entitytype := self.resolveone(ODEntityType);
+//es.navigationPropertyBindings ← (cf. rule to transform navigable association ends, i.e., row 5)
+result.navigationpropertybindings := self.association.map AssociationToODNavigationPropertyBinding();	
+}
+
+mapping DataType::DataTypeToODComplexType() : ODComplexType{
+//ct.name ← dt.name
+result.name := self.name;
+//if ct.abstract = true then dt.abstract ← true
+if (self.isAbstract = true) result._abstract := true;
+//if dt.generalizations contains a data type dd then ct.baseType ← t where t is the corresponding ODComplexType of dd
+if (self.parent <> null) result.baseType := self.parent.map DataTypeToODComplexType(); 
+//ct.properties ← (cf. rules to transform attributes, i.e., rows 3 and 4)
+//p is a class attribute or a data type attribute
+result.properties := self.attribute.map AttributeToODProperty();  
+
+}
+
+mapping Enumeration::EnumerationToODEnumType() : ODEnumType{
+//oe.name ← e.name
+result.name := self.name;
+//oe.members ← (cf. rule to transform literals, i.e., row 7)
+result.odmember := self.enumerationliteral.map EnumerationLiteralToODMember();
+}
+
+mapping Attribute::AttributeToODProperty() : ODProperty{
+//op.name ← p.name
+result.name := self.name;
+//op.type ← t where t is the corresponding type of the attribute
+if(self.type.metaClassName() = "DataType") result.type := self.type.oclAsType(DataType).map DataTypeToODComplexType();  
+if(self.type.metaClassName() = "PrimitiveType") result.type := self.type.map TypeToODPrimitiveType();     
+if(self.type.metaClassName() = "Enumeration") result.type := self.type.oclAsType(Enumeration).map EnumerationToODEnumType();  
+//if p is multivalued then op.multivalued ← true
+if (self.multivalue) result.multivalue := true;
+}
+
+mapping Attribute::AttributeToODPropertyKeyRef() : ODPropertyKeyRef {
+//pk.property = op
+result._property := self.resolveone(ODProperty);
+}
+
+mapping Association::AssociationToODNavigationProperty() : ODNavigationProperty {
+//np.name ← p.name
+result.name := self.name;
+//np.type ← t where t is the corresponding entity type of p.type
+result.type := self.type.map TypeToODEntityType();
+//if p.aggregation = Composite then np.containsTarget ← true
+if (self.isComposition) result.containsTarget := true;
+//if p is multivalued is then np.multivalued ← true
+if (self.multivalue) result.multivalue := true;
+}
+
+mapping Association::AssociationToODNavigationPropertyBinding() : ODNavigationPropertyBinding {
+//npb.path ← p.name
+result.path := self.name;
+//npb.target ← t.name where t is the corresponding entity set of p.type	
+result.target := self.type.map TypeToODEntitySet().name;
+}
+
+mapping Type::TypeToODPrimitiveType() : ODPrimitiveType{
+result.name := self.name;
+}
+
+mapping Type::TypeToODEntityType() : ODEntityType{
+result.name := self.name;
+}
+
+mapping Type::TypeToODEntitySet() : ODEntitySet{
+result.name := self.name;
+result.entitytype := self.resolveone(ODEntityType);
+}
+
+mapping EnumerationLiteral::EnumerationLiteralToODMember() : ODMember{
+//om.name ← el.name
+result.name := self.literalName;	
+}

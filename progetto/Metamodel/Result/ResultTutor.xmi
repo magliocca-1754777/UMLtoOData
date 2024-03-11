@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OData="http://odatamodel.com" xsi:schemaLocation="http://odatamodel.com ../OData.ecore">
+  <OData:ODSchema namespace="com.example.ODataTutor" alias="Tutor">
+    <entitycontainer name="TutorService">
+      <entitysets name="Tutors" entitytype="/0/@entitytypes.0">
+        <navigationpropertybindings path="worksOn" target="DirectedAssociation"/>
+      </entitysets>
+      <entitysets name="DaysOfTheWeeks" entitytype="/0/@entitytypes.1"/>
+    </entitycontainer>
+    <entitytypes name="Tutor">
+      <navigationproperties type="/2" name="worksOn"/>
+      <properties type="/1" name="name"/>
+    </entitytypes>
+    <entitytypes name="DaysOfTheWeek">
+      <properties type="/3" name="DaysOfTheWeek"/>
+    </entitytypes>
+  </OData:ODSchema>
+  <OData:ODPrimitiveType name="String"/>
+  <OData:ODEntityType name="DirectedAssociation"/>
+  <OData:ODEnumType name="DaysOfTheWeek">
+    <odmember name="Monday"/>
+    <odmember name="Tuesday "/>
+    <odmember name="Wednesday"/>
+    <odmember name="Thursday"/>
+    <odmember name="Friday"/>
+    <odmember name="Saturday"/>
+    <odmember name="Sunday"/>
+  </OData:ODEnumType>
+  <OData:ODEntitySet name="DirectedAssociation" entitytype="/2"/>
+</xmi:XMI>

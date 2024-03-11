@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uml="http://umlmodel.com"
+    xsi:schemaLocation="http://umlmodel.com ../uml.ecore"
+    name="Hospital">
+  <own xsi:type="uml:Class"
+      name="Nurse">
+    <attribute
+        type="//@own.3"
+        name="name"/>
+    <attribute
+        type="//@own.4"
+        name="ID"/>
+  </own>
+  <own xsi:type="uml:Class"
+      name="Hospital">
+    <attribute
+        type="//@own.3"
+        name="name"/>
+    <attribute
+        type="//@own.4"
+        name="ID"/>
+    <association
+        isComposition="true"
+        source="//@own.1"
+        target="//@own.0"
+        name="nurses"
+        type="//@own.2"/>
+  </own>
+  <own name="Composition"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="String"/>
+  <own xsi:type="uml:PrimitiveType"
+      name="Integer"/>
+</uml:Model>

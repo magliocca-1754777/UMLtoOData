@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OData="http://odatamodel.com" xsi:schemaLocation="http://odatamodel.com ../OData.ecore">
+  <OData:ODSchema namespace="com.example.ODataDemo" alias="Demo">
+    <entitycontainer name="DemoService">
+      <entitysets name="Products" entitytype="/0/@entitytypes.0">
+        <navigationpropertybindings path="ProductSupplier" target="Association"/>
+      </entitysets>
+      <entitysets name="Suppliers" entitytype="/0/@entitytypes.1">
+        <navigationpropertybindings path="SupplierProduct" target="Association"/>
+      </entitysets>
+    </entitycontainer>
+    <entitytypes name="Product">
+      <navigationproperties type="/5" name="ProductSupplier"/>
+      <properties type="/1" name="ID"/>
+      <properties type="/2" name="Name"/>
+      <properties type="/2" name="Description"/>
+      <properties type="/3" name="ReleasedDate"/>
+      <properties type="/3" name="DiscontinuedDate"/>
+      <properties name="Rating"/>
+      <properties type="/4" name="Price"/>
+      <propertykeyref property="/0/@entitytypes.0/@properties.0"/>
+    </entitytypes>
+    <entitytypes name="Supplier">
+      <navigationproperties multivalue="true" type="/5" name="SupplierProduct"/>
+      <properties type="/1" name="ID"/>
+      <properties name="Name"/>
+      <properties type="/6" name="Address"/>
+      <propertykeyref property="/0/@entitytypes.1/@properties.0"/>
+    </entitytypes>
+  </OData:ODSchema>
+  <OData:ODPrimitiveType name="Integer"/>
+  <OData:ODPrimitiveType name="String"/>
+  <OData:ODComplexType name="Date"/>
+  <OData:ODPrimitiveType name="Double"/>
+  <OData:ODEntityType name="Association"/>
+  <OData:ODComplexType name="Address">
+    <properties type="/2" name="Street"/>
+    <properties type="/2" name="City"/>
+    <properties type="/2" name="State"/>
+    <properties type="/2" name="ZipCode"/>
+    <properties type="/2" name="Country"/>
+  </OData:ODComplexType>
+  <OData:ODEntitySet name="Association" entitytype="/5"/>
+</xmi:XMI>
